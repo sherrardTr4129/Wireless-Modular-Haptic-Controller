@@ -1,0 +1,8 @@
+(module OLED_Screen (layer F.Cu) (tedit 60DB824D)
+  (fp_text reference REF** (at 0 5.08) (layer F.SilkS)
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
+  (fp_text value OLED_Screen (at 0 2.54) (layer F.Fab)
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
+)
