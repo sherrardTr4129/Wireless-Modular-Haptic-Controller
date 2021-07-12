@@ -1430,7 +1430,7 @@ Wire Wire Line
 Text Notes 8650 2700 0    50   ~ 0
 BNO055 Sensor
 $Comp
-L wireless-control-lib:DRV2605L U6
+L wireless-hand-held-controller-rescue:DRV2605L-wireless-control-lib U6
 U 1 1 60DDADC7
 P 10850 1850
 F 0 "U6" H 11078 2171 50  0000 L CNN
