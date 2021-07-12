@@ -1430,17 +1430,6 @@ Wire Wire Line
 Text Notes 8650 2700 0    50   ~ 0
 BNO055 Sensor
 $Comp
-L wireless-hand-held-controller-rescue:DRV2605L-wireless-control-lib U6
-U 1 1 60DDADC7
-P 10850 1850
-F 0 "U6" H 11078 2171 50  0000 L CNN
-F 1 "DRV2605L" H 11078 2080 50  0000 L CNN
-F 2 "wireless-hand-held-controller:DRV2605L" H 10650 1850 50  0001 C CNN
-F 3 "" H 10650 1850 50  0001 C CNN
-	1    10850 1850
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:+5V #PWR0134
 U 1 1 60DEE196
 P 10500 1400
@@ -1819,4 +1808,15 @@ Wire Wire Line
 	7650 1350 7750 1350
 Wire Wire Line
 	7500 1550 7650 1550
+$Comp
+L wireless-control-lib:DRV2605L U6
+U 1 1 60ED77D3
+P 10850 1850
+F 0 "U6" H 11078 2171 50  0000 L CNN
+F 1 "DRV2605L" H 11078 2080 50  0000 L CNN
+F 2 "wireless-hand-held-controller:DRV2605L" H 10650 1850 50  0001 C CNN
+F 3 "" H 10650 1850 50  0001 C CNN
+	1    10850 1850
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
