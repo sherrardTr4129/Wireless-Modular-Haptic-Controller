@@ -793,10 +793,6 @@ F 3 "" H 13300 9050 50  0001 C CNN
 $EndComp
 Connection ~ 13300 9050
 Wire Notes Line
-	11550 7750 11550 9600
-Wire Notes Line
-	11550 7750 16050 7750
-Wire Notes Line
 	11550 9600 16050 9600
 Text Notes 12750 9550 0    50   ~ 0
 Power Rail Regulation
@@ -1563,7 +1559,7 @@ Wire Wire Line
 Wire Wire Line
 	10000 3550 10100 3550
 Text GLabel 11750 3550 2    50   Input ~ 0
-XBEE_TX
+XBEE_TX_3.3V
 Wire Wire Line
 	11750 3550 11600 3550
 NoConn ~ 10100 3650
@@ -1582,11 +1578,11 @@ NoConn ~ 11600 3850
 NoConn ~ 11600 3750
 NoConn ~ 11600 3650
 Text GLabel 10000 3550 0    50   Input ~ 0
-XBEE_RX
+XBEE_RX_3.3V
 Text GLabel 3550 8250 2    50   Input ~ 0
-XBEE_RX
+XBEE_RX_5V
 Text GLabel 3550 8150 2    50   Input ~ 0
-XBEE_TX
+XBEE_TX_5V
 Wire Wire Line
 	3550 8150 3350 8150
 Wire Wire Line
@@ -1708,10 +1704,6 @@ NoConn ~ 3350 10350
 NoConn ~ 3350 10450
 Wire Notes Line
 	9300 4950 12250 4950
-Wire Notes Line
-	12250 500  12250 4950
-Wire Notes Line
-	9300 500  9300 4950
 Text Notes 12000 4900 0    50   ~ 0
 XBEE
 Text GLabel 3550 9250 2    50   Input ~ 0
@@ -1780,8 +1772,6 @@ Wire Wire Line
 	7600 3250 7700 3250
 Wire Notes Line
 	9300 4000 6700 4000
-Wire Notes Line
-	6700 500  6700 4000
 Text Notes 7900 3950 0    50   ~ 0
 Connections For External Interrupts
 Wire Wire Line
@@ -1819,4 +1809,208 @@ F 3 "" H 10650 1850 50  0001 C CNN
 	1    10850 1850
 	1    0    0    -1  
 $EndComp
+$Comp
+L dk_Transistors-FETs-MOSFETs-Single:BSS138 Q2
+U 1 1 60F82E93
+P 7900 4950
+F 0 "Q2" V 8061 4950 60  0000 C CNN
+F 1 "BSS138" V 8167 4950 60  0000 C CNN
+F 2 "digikey-footprints:SOT-23-3" H 8100 5150 60  0001 L CNN
+F 3 "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF" H 8100 5250 60  0001 L CNN
+F 4 "BSS138CT-ND" H 8100 5350 60  0001 L CNN "Digi-Key_PN"
+F 5 "BSS138" H 8100 5450 60  0001 L CNN "MPN"
+F 6 "Discrete Semiconductor Products" H 8100 5550 60  0001 L CNN "Category"
+F 7 "Transistors - FETs, MOSFETs - Single" H 8100 5650 60  0001 L CNN "Family"
+F 8 "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF" H 8100 5750 60  0001 L CNN "DK_Datasheet_Link"
+F 9 "/product-detail/en/on-semiconductor/BSS138/BSS138CT-ND/244294" H 8100 5850 60  0001 L CNN "DK_Detail_Page"
+F 10 "MOSFET N-CH 50V 220MA SOT-23" H 8100 5950 60  0001 L CNN "Description"
+F 11 "ON Semiconductor" H 8100 6050 60  0001 L CNN "Manufacturer"
+F 12 "Active" H 8100 6150 60  0001 L CNN "Status"
+F 13 "C52895" V 7900 4950 50  0001 C CNN "LCSC"
+	1    7900 4950
+	0    1    1    0   
+$EndComp
+Wire Notes Line
+	11550 7750 16050 7750
+Wire Notes Line
+	11550 7750 11550 9600
+$Comp
+L Device:R_Small R9
+U 1 1 60FA1024
+P 7450 4700
+F 0 "R9" H 7391 4654 50  0000 R CNN
+F 1 "10k" H 7391 4745 50  0000 R CNN
+F 2 "Resistor_SMD:R_1206_3216Metric" H 7450 4700 50  0001 C CNN
+F 3 "~" H 7450 4700 50  0001 C CNN
+F 4 "C17902" H 7450 4700 50  0001 C CNN "LCSC"
+	1    7450 4700
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	7450 4800 7450 4950
+Wire Wire Line
+	7450 4950 7700 4950
+Wire Wire Line
+	7800 4650 7800 4500
+Wire Wire Line
+	7800 4500 7450 4500
+Wire Wire Line
+	7450 4500 7450 4600
+$Comp
+L power:+3.3V #PWR0142
+U 1 1 60FEC4C3
+P 7450 4500
+F 0 "#PWR0142" H 7450 4350 50  0001 C CNN
+F 1 "+3.3V" H 7465 4673 50  0000 C CNN
+F 2 "" H 7450 4500 50  0001 C CNN
+F 3 "" H 7450 4500 50  0001 C CNN
+	1    7450 4500
+	1    0    0    -1  
+$EndComp
+Connection ~ 7450 4500
+$Comp
+L Device:R_Small R12
+U 1 1 60FEDDDF
+P 8250 4700
+F 0 "R12" H 8191 4654 50  0000 R CNN
+F 1 "10k" H 8191 4745 50  0000 R CNN
+F 2 "Resistor_SMD:R_1206_3216Metric" H 8250 4700 50  0001 C CNN
+F 3 "~" H 8250 4700 50  0001 C CNN
+F 4 "C17902" H 8250 4700 50  0001 C CNN "LCSC"
+	1    8250 4700
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	8100 4950 8250 4950
+Wire Wire Line
+	8250 4950 8250 4800
+Wire Wire Line
+	8250 4600 8250 4500
+$Comp
+L power:+5V #PWR0143
+U 1 1 610083C0
+P 8250 4500
+F 0 "#PWR0143" H 8250 4350 50  0001 C CNN
+F 1 "+5V" H 8265 4673 50  0000 C CNN
+F 2 "" H 8250 4500 50  0001 C CNN
+F 3 "" H 8250 4500 50  0001 C CNN
+	1    8250 4500
+	1    0    0    -1  
+$EndComp
+Wire Notes Line
+	12250 500  12250 4950
+Text GLabel 7400 4950 0    50   Input ~ 0
+XBEE_TX_3.3V
+Text GLabel 8300 4950 2    50   Input ~ 0
+XBEE_TX_5V
+Wire Wire Line
+	8300 4950 8250 4950
+Connection ~ 8250 4950
+Wire Wire Line
+	7400 4950 7450 4950
+Connection ~ 7450 4950
+Text GLabel 7350 6050 0    50   Input ~ 0
+XBEE_RX_3.3V
+Text GLabel 8300 6050 2    50   Input ~ 0
+XBEE_RX_5V
+$Comp
+L dk_Transistors-FETs-MOSFETs-Single:BSS138 Q1
+U 1 1 61062903
+P 7850 6050
+F 0 "Q1" V 8011 6050 60  0000 C CNN
+F 1 "BSS138" V 8117 6050 60  0000 C CNN
+F 2 "digikey-footprints:SOT-23-3" H 8050 6250 60  0001 L CNN
+F 3 "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF" H 8050 6350 60  0001 L CNN
+F 4 "BSS138CT-ND" H 8050 6450 60  0001 L CNN "Digi-Key_PN"
+F 5 "BSS138" H 8050 6550 60  0001 L CNN "MPN"
+F 6 "Discrete Semiconductor Products" H 8050 6650 60  0001 L CNN "Category"
+F 7 "Transistors - FETs, MOSFETs - Single" H 8050 6750 60  0001 L CNN "Family"
+F 8 "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF" H 8050 6850 60  0001 L CNN "DK_Datasheet_Link"
+F 9 "/product-detail/en/on-semiconductor/BSS138/BSS138CT-ND/244294" H 8050 6950 60  0001 L CNN "DK_Detail_Page"
+F 10 "MOSFET N-CH 50V 220MA SOT-23" H 8050 7050 60  0001 L CNN "Description"
+F 11 "ON Semiconductor" H 8050 7150 60  0001 L CNN "Manufacturer"
+F 12 "Active" H 8050 7250 60  0001 L CNN "Status"
+F 13 "C52895" V 7850 6050 50  0001 C CNN "LCSC"
+	1    7850 6050
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	7350 6050 7500 6050
+Wire Wire Line
+	8050 6050 8200 6050
+$Comp
+L Device:R_Small R10
+U 1 1 6107BBBC
+P 7500 5850
+F 0 "R10" H 7441 5804 50  0000 R CNN
+F 1 "10k" H 7441 5895 50  0000 R CNN
+F 2 "Resistor_SMD:R_1206_3216Metric" H 7500 5850 50  0001 C CNN
+F 3 "~" H 7500 5850 50  0001 C CNN
+F 4 "C17902" H 7500 5850 50  0001 C CNN "LCSC"
+	1    7500 5850
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:R_Small R11
+U 1 1 6107C1C7
+P 8200 5850
+F 0 "R11" H 8141 5804 50  0000 R CNN
+F 1 "10k" H 8141 5895 50  0000 R CNN
+F 2 "Resistor_SMD:R_1206_3216Metric" H 8200 5850 50  0001 C CNN
+F 3 "~" H 8200 5850 50  0001 C CNN
+F 4 "C17902" H 8200 5850 50  0001 C CNN "LCSC"
+	1    8200 5850
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	7500 5950 7500 6050
+Connection ~ 7500 6050
+Wire Wire Line
+	7500 6050 7650 6050
+Wire Wire Line
+	8200 5950 8200 6050
+Connection ~ 8200 6050
+Wire Wire Line
+	8200 6050 8300 6050
+$Comp
+L power:+3.3V #PWR0144
+U 1 1 61096AD1
+P 7500 5600
+F 0 "#PWR0144" H 7500 5450 50  0001 C CNN
+F 1 "+3.3V" H 7515 5773 50  0000 C CNN
+F 2 "" H 7500 5600 50  0001 C CNN
+F 3 "" H 7500 5600 50  0001 C CNN
+	1    7500 5600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7500 5750 7500 5650
+Wire Wire Line
+	7750 5750 7750 5650
+Wire Wire Line
+	7750 5650 7500 5650
+Connection ~ 7500 5650
+Wire Wire Line
+	7500 5650 7500 5600
+$Comp
+L power:+5V #PWR0145
+U 1 1 610B1586
+P 8200 5550
+F 0 "#PWR0145" H 8200 5400 50  0001 C CNN
+F 1 "+5V" H 8215 5723 50  0000 C CNN
+F 2 "" H 8200 5550 50  0001 C CNN
+F 3 "" H 8200 5550 50  0001 C CNN
+	1    8200 5550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8200 5750 8200 5550
+Wire Notes Line
+	6700 6550 9300 6550
+Wire Notes Line
+	9300 500  9300 6550
+Wire Notes Line
+	6700 500  6700 6550
+Text Notes 8500 6500 0    50   ~ 0
+XBEE Level Shifting
 $EndSCHEMATC
