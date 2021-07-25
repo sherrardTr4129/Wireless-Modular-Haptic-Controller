@@ -27,3 +27,6 @@ fp-info-cache
 
 # FreeCAD temp files
 *.FCStd1
+
+#cython files
+*.pyc
