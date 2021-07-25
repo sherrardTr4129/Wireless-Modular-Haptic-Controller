@@ -9,7 +9,8 @@
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BNO055.h>
 #include <utility/imumaths.h>
-#include "Adafruit_DRV2605.h"
+#include <Adafruit_DRV2605.h>
+#include <ArduinoJson.h>
 
 // include system libraries
 #include "include/system_config.h"
@@ -30,12 +31,14 @@ bool is_DRV2605_start;
 
 // define global variables for BNO055 Data
 float euler_x, euler_y, euler_z;
-float quat_x, quat_y, quat_z, quat_w;
 int8_t temp;
 
 // define flags for ISRs
 bool was_in_top_button_ISR = false;
 bool was_in_bottom_button_ISR = false;
+
+// define a JSON document
+StaticJsonDocument<200> JSON_doc;
 
 // define button ISRs
 void top_button_ISR()
@@ -56,6 +59,12 @@ void setup() {
   // start bsp components
   is_BNO055_start = bsp.startBNO055();
   is_DRV2605_start = bsp.startDRV2605();
+
+  // set up json document with static values
+  JSON_doc["controller_id"] = "right_hand";
+  JSON_doc["euler_x"] = 0;
+  JSON_doc["euler_y"] = 0;
+  JSON_doc["euler_z"] = 0;
 
   // setup up interrupt pins
   pinMode(INTERRUPT_PIN_1, INPUT_PULLUP);
@@ -85,6 +94,18 @@ void loop() {
     // reset flag
     was_in_top_button_ISR = false;
   }
+
+  // read from BNO055 sensor
+  bsp.readEuler(euler_x, euler_y, euler_z);
+
+  // update data in json doc
+  JSON_doc["euler_x"] = euler_x;
+  JSON_doc["euler_y"] = euler_y;
+  JSON_doc["euler_z"] = euler_z;
+
+  // serialize JSON
+  serializeJson(JSON_doc, Serial1);
+  Serial1.print('\n');
   
   delay(BNO_LOOP_DELAY);
 }
