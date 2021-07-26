@@ -3,6 +3,8 @@
  * Since: July 23, 2021
  * Purpose: Class definition for haptic controller bsp. 
  */
+#ifndef BSP
+#define BSP
 
 class hapticBSP
 {
@@ -26,3 +28,5 @@ class hapticBSP
 	   Adafruit_BNO055 *_bno;
 	   Adafruit_DRV2605 *_drv;
 };
+
+#endif
