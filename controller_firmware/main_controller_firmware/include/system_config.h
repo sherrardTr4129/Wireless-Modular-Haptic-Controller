@@ -29,7 +29,8 @@ enum tts_control
 {
 	ARM_TOO_LOW,
 	ARM_TOO_HIGH,
-	COLLISION_CLOSE
+	COLLISION_CLOSE,
+	MAX_TTS_ENUM_VAL
 };
 
 #define TTS_I2C_ADDR		8
