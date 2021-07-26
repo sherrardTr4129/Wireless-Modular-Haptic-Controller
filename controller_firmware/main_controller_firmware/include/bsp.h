@@ -17,7 +17,11 @@ class hapticBSP
 
 	   // DRV2605 methods
 	   bool startDRV2605();
-	   void playEffect(uint8_t effect); 
+	   void playEffect(uint8_t effect);
+
+	   // i2c TTS control methods
+	   void setup_tts_i2c();
+	   void speak_tts(uint8_t spk_val);
    private:
 	   Adafruit_BNO055 *_bno;
 	   Adafruit_DRV2605 *_drv;

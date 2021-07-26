@@ -59,6 +59,7 @@ void setup() {
   // start bsp components
   is_BNO055_start = bsp.startBNO055();
   is_DRV2605_start = bsp.startDRV2605();
+  bsp.setup_tts_i2c();
 
   // set up json document with static values
   JSON_doc["controller_id"] = "right_hand";
@@ -80,7 +81,8 @@ void loop() {
   if(was_in_bottom_button_ISR)
   {
     Serial.println("Bottom Button Pressed!");
-    bsp.playEffect(58);
+    bsp.playEffect(STRONG_RAMP);
+    bsp.speak_tts(ARM_TOO_LOW);
 
     // reset flag
     was_in_bottom_button_ISR = false;
@@ -89,7 +91,8 @@ void loop() {
   if(was_in_top_button_ISR)
   {
     Serial.println("Top Button Pressed!");
-    bsp.playEffect(58);
+    bsp.playEffect(STRONG_RAMP);
+    bsp.speak_tts(ARM_TOO_HIGH);
 
     // reset flag
     was_in_top_button_ISR = false;

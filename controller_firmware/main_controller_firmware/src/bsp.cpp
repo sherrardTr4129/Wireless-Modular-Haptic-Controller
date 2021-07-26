@@ -10,6 +10,7 @@
 #include <Adafruit_BNO055.h>
 #include <utility/imumaths.h>
 #include "Adafruit_DRV2605.h"
+#include <Wire.h>
 
 // include system libraries
 #include "../include/system_config.h"
@@ -112,4 +113,27 @@ void hapticBSP::playEffect(uint8_t effect)
 
    // wait for effect to finish
    delay(EFFECT_DELAY);
+}
+
+void hapticBSP::setup_tts_i2c()
+{
+   Wire.begin();
+}
+
+void hapticBSP::speak_tts(uint8_t spk_val)
+{
+   // constrain spk_val
+   if(spk_val > 2)
+   {
+      spk_val = 2;
+   }
+
+   // start transmission
+   Wire.beginTransmission(TTS_I2C_ADDR);
+
+   // write byte
+   Wire.write(spk_val);
+
+   // end transmission
+   Wire.endTransmission();
 }
