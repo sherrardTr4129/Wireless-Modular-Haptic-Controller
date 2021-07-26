@@ -5,56 +5,49 @@
  *          to manage and drive the onboard controller 
  *          speaker.
  */
+ 
+// include TTS and peripheral libraries 
 #include "Talkie.h"
 #include "Vocab_US_Large.h"
 #include "Vocab_Special.h"
+#include <Wire.h>
 
-// set up talkie instance
-Talkie voice;
+// include system libraries
+#include "include/system_config.h"
+#include "include/speech_driver.h"
 
-void arm_too_low()
-{  
-  voice.say(sp2_DANGER);
-  voice.say(sp2_POSITION);
-  voice.say(sp2_IS);
-  voice.say(sp4_TOO_LOW);
-  voice.say(sp4_PLEASE);
-  voice.say(sp5_RAISE);
-  voice.say(spPAUSE1);
-}
+// create speech driver object
+Talkie talkie;
+speechDriver spk_drv(&talkie);
 
-void arm_too_high()
+// create callback for i2c events
+void handle_i2c_event()
 {
-  voice.say(sp2_DANGER);
-  voice.say(sp2_POSITION);
-  voice.say(sp2_IS);
-  voice.say(sp2_HIGH);
-  voice.say(sp4_PLEASE);
-  voice.say(sp4_LOWER);
-  voice.say(spPAUSE1);
+  // read control byte
+  int rx_byte = Wire.read();
+
+  // switch on byte, execute proper event
+  switch(rx_byte)
+  {
+    case 0:
+      spk_drv.arm_too_low();
+      break;
+    case 1:
+      spk_drv.arm_too_high();
+      break;
+    case 2:
+      spk_drv.obstacle_close();
+      break;
+    default:
+      break;
+  } 
 }
 
-void obstacle_close()
-{
-  voice.say(sp2_DANGER);
-  voice.say(sp4_BASE);
-  voice.say(sp4_CONTACT);
-  voice.say(sp4_CLOSE);
-  voice.say(sp4_PLEASE);
-  voice.say(sp2_CHANGE);
-  voice.say(sp4_COURSE);
-  voice.say(sp4_IMMEDIATELY);
-  voice.say(spPAUSE1);
-}
-void setup() {  
-
+void setup() {
+  Wire.begin(I2C_ADDR); // join i2c bus
+  Wire.onReceive(handle_i2c_event);
 }
 
 void loop() {
-  arm_too_high();
-  delay(2500);
-  arm_too_low();
-  delay(2500);
-  obstacle_close();
-  delay(2500);
+  delay(SPK_LOOP_REFRESH);
 }
