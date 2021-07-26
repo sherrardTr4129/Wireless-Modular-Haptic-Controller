@@ -7,18 +7,20 @@
  */
 #include "Talkie.h"
 #include "Vocab_US_Large.h"
+#include "Vocab_Special.h"
 
 // set up talkie instance
 Talkie voice;
 
 void arm_too_low()
-{
+{  
   voice.say(sp2_DANGER);
   voice.say(sp2_POSITION);
   voice.say(sp2_IS);
   voice.say(sp4_TOO_LOW);
   voice.say(sp4_PLEASE);
   voice.say(sp5_RAISE);
+  voice.say(spPAUSE1);
 }
 
 void arm_too_high()
@@ -29,6 +31,7 @@ void arm_too_high()
   voice.say(sp2_HIGH);
   voice.say(sp4_PLEASE);
   voice.say(sp4_LOWER);
+  voice.say(spPAUSE1);
 }
 
 void obstacle_close()
@@ -41,6 +44,7 @@ void obstacle_close()
   voice.say(sp2_CHANGE);
   voice.say(sp4_COURSE);
   voice.say(sp4_IMMEDIATELY);
+  voice.say(spPAUSE1);
 }
 void setup() {  
 
@@ -48,8 +52,9 @@ void setup() {
 
 void loop() {
   arm_too_high();
-  delay(500);
+  delay(2500);
+  arm_too_low();
+  delay(2500);
   obstacle_close();
-  
-
+  delay(2500);
 }
