@@ -1,7 +1,7 @@
 /*
  * Author: Trevor Sherrard
  * Since: July 26, 2021
- * Purpose: function definitions for TTS
+ * Purpose: class implementation for TTS
  */
 
 // include libraries for TTS
@@ -15,7 +15,7 @@
 
 speechDriver::speechDriver(Talkie *voice)
 {
-   // set up talkie
+   // set up talkie pointer
    _voice = voice;
 }
 
@@ -53,8 +53,3 @@ void speechDriver::obstacle_close()
    _voice->say(sp4_IMMEDIATELY);
    _voice->say(spPAUSE1);
 }
-
-
-
-
-

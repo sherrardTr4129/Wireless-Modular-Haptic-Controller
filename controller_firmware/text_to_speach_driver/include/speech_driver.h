@@ -1,3 +1,9 @@
+/*
+ * Author: Trevor Sherrard
+ * Since: July 26, 2021
+ * Purpose: class definition for TTS
+ */
+
 #ifndef SPEECH_DRV
 #define SPEECH_DRV
 
