@@ -16,6 +16,7 @@
 #include "include/system_config.h"
 #include "include/bsp.h"
 #include "include/outbound_json_manager.h"
+#include "include/inbound_json_manager.h"
 
 // create adafruit BNO055 sensor handle
 Adafruit_BNO055 bno = Adafruit_BNO055(-1, BNO_I2C_ADDR);
@@ -42,6 +43,11 @@ bool was_in_bottom_button_ISR = false;
 bool usingEuler = true;
 const char* controller_name = "right_hand";
 OutboundJsonDocManager outbound_doc = OutboundJsonDocManager(usingEuler, controller_name);
+
+// define inbound JSON doc manager
+InboundJsonDocManager inbound_doc = InboundJsonDocManager(controller_name);
+String inbound_data_str;
+char inbound_data[INBOUND_BUFFER_SIZE];
 
 // define button ISRs
 void top_button_ISR()
@@ -101,6 +107,39 @@ void loop() {
 
     // reset flag
     was_in_top_button_ISR = false;
+  }
+
+  // see if we have new incoming data from the Xbee
+  Serial1.available();
+  if(Serial1.available() > 0)
+  {
+    // if so, read the data from Serial1
+    inbound_data_str = Serial1.readString();
+
+    // move string to char array
+    inbound_data_str.toCharArray(inbound_data, INBOUND_BUFFER_SIZE);
+
+    // try to parse new data
+    bool isParsed = inbound_doc.procInboundDoc(inbound_data);
+
+    // extract values from object
+    if (isParsed)
+    {
+      int voiceVal = inbound_doc.getVoiceActionID();
+      int hapticVal = inbound_doc.getHapticActionID();
+
+      // if hapticVal or voiceVal are non-zero, perform
+      // respective audio or haptic display
+      if(hapticVal >= 0)
+      {
+         bsp.playEffect(hapticVal);
+      }
+
+      if(voiceVal >= 0)
+      {
+        bsp.speak_tts(voiceVal);
+      }
+    }
   }
 
   // read from BNO055 sensor
