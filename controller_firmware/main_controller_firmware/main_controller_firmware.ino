@@ -15,6 +15,7 @@
 // include system libraries
 #include "include/system_config.h"
 #include "include/bsp.h"
+#include "include/outbound_json_manager.h"
 
 // create adafruit BNO055 sensor handle
 Adafruit_BNO055 bno = Adafruit_BNO055(-1, BNO_I2C_ADDR);
@@ -37,8 +38,10 @@ int8_t temp;
 bool was_in_top_button_ISR = false;
 bool was_in_bottom_button_ISR = false;
 
-// define a JSON document
-StaticJsonDocument<200> JSON_doc;
+// define outbound JSON doc manager
+bool usingEuler = true;
+const char* controller_name = "right_hand";
+OutboundJsonDocManager outbound_doc = OutboundJsonDocManager(usingEuler, controller_name);
 
 // define button ISRs
 void top_button_ISR()
@@ -61,12 +64,6 @@ void setup() {
   is_DRV2605_start = bsp.startDRV2605();
   bsp.setup_tts_i2c();
 
-  // set up json document with static values
-  JSON_doc["controller_id"] = "right_hand";
-  JSON_doc["euler_x"] = 0;
-  JSON_doc["euler_y"] = 0;
-  JSON_doc["euler_z"] = 0;
-
   // setup up interrupt pins
   pinMode(INTERRUPT_PIN_1, INPUT_PULLUP);
   pinMode(INTERRUPT_PIN_2, INPUT_PULLUP);
@@ -80,7 +77,11 @@ void loop() {
   // address ISR flags if they are raised
   if(was_in_bottom_button_ISR)
   {
-    Serial.println("Bottom Button Pressed!");
+    // update doc with event info and serialize
+    outbound_doc.bottomButtonEvent();
+    outbound_doc.sendEventDoc();
+
+    // play haptic effect and TTS
     bsp.playEffect(STRONG_RAMP);
     bsp.speak_tts(ARM_TOO_LOW);
 
@@ -90,7 +91,11 @@ void loop() {
 
   if(was_in_top_button_ISR)
   {
-    Serial.println("Top Button Pressed!");
+    // update doc with event info and serialize
+    outbound_doc.topButtonEvent();
+    outbound_doc.sendEventDoc();
+
+    // play haptic effect and TTS
     bsp.playEffect(STRONG_RAMP);
     bsp.speak_tts(ARM_TOO_HIGH);
 
@@ -100,15 +105,11 @@ void loop() {
 
   // read from BNO055 sensor
   bsp.readEuler(euler_x, euler_y, euler_z);
+  bsp.readTemp(temp);
 
-  // update data in json doc
-  JSON_doc["euler_x"] = euler_x;
-  JSON_doc["euler_y"] = euler_y;
-  JSON_doc["euler_z"] = euler_z;
-
-  // serialize JSON
-  serializeJson(JSON_doc, Serial1);
-  Serial1.print('\n');
+  outbound_doc.updateEuler(euler_x, euler_y, euler_z);
+  outbound_doc.updateTemp(temp);
+  outbound_doc.sendDataDoc();
   
   delay(BNO_LOOP_DELAY);
 }
