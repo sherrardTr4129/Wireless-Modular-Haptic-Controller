@@ -1,0 +1,3 @@
+controller_haptic_voice haptic_voice_event
+---
+bool status
