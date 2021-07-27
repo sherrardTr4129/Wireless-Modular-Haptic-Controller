@@ -4,6 +4,7 @@
 // define interrupt pins
 #define INTERRUPT_PIN_1		2
 #define INTERRUPT_PIN_2		3
+#define MIN_MS_BETWEEN_INT	300
 
 // define BNO055 constants
 #define BNO_I2C_ADDR		0x28

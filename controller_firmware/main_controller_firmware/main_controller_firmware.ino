@@ -1,9 +1,9 @@
 /*
- * Author: Trevor Sherrard
- * Since: July 23, 2021
- * Purpose: firmware for main MCU on wireless 
- *          haptic controller.
- */
+   Author: Trevor Sherrard
+   Since: July 23, 2021
+   Purpose: firmware for main MCU on wireless
+            haptic controller.
+*/
 // include libraries needed for peripherals
 #include <Wire.h>
 #include <Adafruit_Sensor.h>
@@ -49,26 +49,49 @@ InboundJsonDocManager inbound_doc = InboundJsonDocManager(controller_name);
 String inbound_data_str;
 char inbound_data[INBOUND_BUFFER_SIZE];
 
-// define button ISRs
+// define button ISRs and debounce timers
+static unsigned long last_top_interrupt_time = 0;
+static unsigned long last_bottom_interrupt_time = 0;
+unsigned long cur_top_interrupt_time;
+unsigned long cur_bottom_interrupt_time;
+
 void top_button_ISR()
 {
-  was_in_top_button_ISR = true;
+  // only allow interrupt to fire if it's been long than
+  // MIN_MS_BETWEEN_INT since last interrupt
+  cur_top_interrupt_time = millis();
+  if (cur_top_interrupt_time - last_top_interrupt_time > MIN_MS_BETWEEN_INT)
+  {
+    was_in_top_button_ISR = true;
+  }
+  last_top_interrupt_time = cur_top_interrupt_time;
 }
 
 void bottom_button_ISR()
 {
-  was_in_bottom_button_ISR = true;
+  // only allow interrupt to fire if it's been long than
+  // MIN_MS_BETWEEN_INT since last interrupt
+  cur_bottom_interrupt_time = millis();
+  if (cur_bottom_interrupt_time - last_bottom_interrupt_time > MIN_MS_BETWEEN_INT)
+  {
+    was_in_bottom_button_ISR = true;
+  }
+  last_bottom_interrupt_time = cur_bottom_interrupt_time;
 }
 
 void setup() {
   // set up serial communication
   Serial.begin(MAIN_SERIAL_BAUD);
   Serial1.begin(XBEE_SERIAL_BAUD);
-  
+
   // start bsp components
   is_BNO055_start = bsp.startBNO055();
   is_DRV2605_start = bsp.startDRV2605();
   bsp.setup_tts_i2c();
+
+  // init interrupt timer val
+  cur_top_interrupt_time = millis();
+  cur_bottom_interrupt_time = millis();
 
   // setup up interrupt pins
   pinMode(INTERRUPT_PIN_1, INPUT_PULLUP);
@@ -81,7 +104,7 @@ void setup() {
 
 void loop() {
   // address ISR flags if they are raised
-  if(was_in_bottom_button_ISR)
+  if (was_in_bottom_button_ISR)
   {
     // update doc with event info and serialize
     outbound_doc.bottomButtonEvent();
@@ -95,7 +118,7 @@ void loop() {
     was_in_bottom_button_ISR = false;
   }
 
-  if(was_in_top_button_ISR)
+  if (was_in_top_button_ISR)
   {
     // update doc with event info and serialize
     outbound_doc.topButtonEvent();
@@ -111,7 +134,7 @@ void loop() {
 
   // see if we have new incoming data from the Xbee
   Serial1.available();
-  if(Serial1.available() > 0)
+  if (Serial1.available() > 0)
   {
     // if so, read the data from Serial1
     inbound_data_str = Serial1.readString();
@@ -130,12 +153,12 @@ void loop() {
 
       // if hapticVal or voiceVal are non-zero, perform
       // respective audio or haptic display
-      if(hapticVal >= 0)
+      if (hapticVal >= 0)
       {
-         bsp.playEffect(hapticVal);
+        bsp.playEffect(hapticVal);
       }
 
-      if(voiceVal >= 0)
+      if (voiceVal >= 0)
       {
         bsp.speak_tts(voiceVal);
       }
@@ -149,6 +172,6 @@ void loop() {
   outbound_doc.updateEuler(euler_x, euler_y, euler_z);
   outbound_doc.updateTemp(temp);
   outbound_doc.sendDataDoc();
-  
+
   delay(BNO_LOOP_DELAY);
 }
