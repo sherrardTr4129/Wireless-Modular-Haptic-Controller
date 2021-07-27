@@ -9,6 +9,17 @@
 
 #include "../include/outbound_json_manager.h"
 
+/*
+ * standard class constructor. Sets up JSON doc templates with defualt
+ * values.
+ *
+ * params:
+ * 	usingEuler -> boolean indicating whether data will be sent 
+ * 		      as euler angle formats (true) or quaternions (false)
+ *      controllerName -> name of this specific controller instance.
+ * returns:
+ * 	void
+ */
 OutboundJsonDocManager::OutboundJsonDocManager(bool usingEuler, const char* controllerName)
 {
    _usingEuler = usingEuler;
@@ -46,6 +57,13 @@ OutboundJsonDocManager::OutboundJsonDocManager(bool usingEuler, const char* cont
    _JSONEventDoc["event_type"] = "";
 }
 
+/*
+ * Updates the internal data JSON doc with euler angles read from sensor
+ * params:
+ * 	x, y, z -> euler angles to update data doc with
+ * returns:
+ * 	void
+ */
 void OutboundJsonDocManager::updateEuler(float x, float y, float z)
 {
    if(_usingEuler)
@@ -56,6 +74,13 @@ void OutboundJsonDocManager::updateEuler(float x, float y, float z)
    }
 }
 
+/*
+ * Updates the internal data JSON doc with quaternion read from sensor
+ * params:
+ *      x, y, z, w -> quaternion components to update data doc with
+ * returns:
+ *      void
+ */
 void OutboundJsonDocManager::updateQuat(float x, float y, float z, float w)
 {
    if(!_usingEuler)
@@ -67,27 +92,66 @@ void OutboundJsonDocManager::updateQuat(float x, float y, float z, float w)
    }
 }
 
+/*
+ * Updates the internal data JSON doc with temperature read from sensor
+ * params:
+ *      temp -> temp to update the doc with
+ * returns:
+ *      void
+ */
 void OutboundJsonDocManager::updateTemp(int8_t temp)
 {
    _JSONDataDoc["temp_c"] = temp;
 }
 
+/*
+ * Serializes the data doc over the Serial1 interface.
+ * params:
+ *      None
+ * returns:
+ *      void
+ */
 void OutboundJsonDocManager::sendDataDoc()
 {
    serializeJson(_JSONDataDoc, Serial1);
    Serial1.print('\n');
 }
 
+/*
+ * populates the event_type field of the event JSON doc with
+ * a top_button_pressed event.
+ *
+ * params:
+ * 	None
+ * returns:
+ * 	void
+ */
 void OutboundJsonDocManager::topButtonEvent()
 {
    _JSONEventDoc["event_type"] = "top_button_pressed";
 }
 
+/*
+ * populates the event_type field of the event JSON doc with
+ * a bottom_button_pressed event.
+ *
+ * params:
+ *      None
+ * returns:
+ *      void
+ */
 void OutboundJsonDocManager::bottomButtonEvent()
 {
    _JSONEventDoc["event_type"] = "bottom_button_pressed";
 }
 
+/*
+ * Serializes the event doc over the Serial1 interface.
+ * params:
+ *      None
+ * returns:
+ *      void
+ */
 void OutboundJsonDocManager::sendEventDoc()
 {
    serializeJson(_JSONEventDoc, Serial1);
