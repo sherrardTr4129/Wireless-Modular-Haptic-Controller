@@ -48,6 +48,17 @@ class SerialManager:
         line = self.serObj.readline()
         return line
 
+    def write(self, stringToWrite):
+        # attempt to write string as 
+        # bytes to serial port
+
+        # format string
+        bytesToWrite = stringToWrite.encode('utf-8')
+
+        # write to serial port
+        self.serObj.write(bytesToWrite)
+
+
     def close(self):
         # close the serial port
         self.serObj.close()
