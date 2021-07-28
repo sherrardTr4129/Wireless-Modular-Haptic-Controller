@@ -17,13 +17,6 @@ from haptic_orientation_capture_driver.msg import controller_event_data, control
 from haptic_orientation_capture_driver.srv import haptic_voice_event
 from tf.transformations import quaternion_from_euler, euler_from_quaternion, quaternion_multiply
 
-# define global variables
-bno055Topic = "/bno055_quat"
-port = "/dev/ttyUSB0"
-baud = 9600
-serObj = SerialManager(port, baud)
-sleepTime = 1
-
 class hapticControllerDriver:
     def __init__(self):
         """
