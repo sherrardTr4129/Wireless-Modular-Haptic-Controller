@@ -12,7 +12,7 @@
 #define BNO_LOOP_DELAY		100
 
 //define Serial parameters
-#define MAIN_SERIAL_BAUD	112500
+#define MAIN_SERIAL_BAUD	115200
 #define XBEE_SERIAL_BAUD	9600
 
 // define DRV2605 parameters
