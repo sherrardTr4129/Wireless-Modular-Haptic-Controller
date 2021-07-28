@@ -24,9 +24,11 @@ class hapticControllerDriver:
         """
         self.bno055QuatTopic = "/bno055_quat"
         self.bno055EulerTopic = "/bno055_euler"
+        self.buttonEventTopic = "/controller_button_event"
         self.hapticVoiceEventSrv = "/haptic_voice_event"
         self.quatPub = None
         self.eulerPub = None
+        self.eventPub = None
         self.port = "/dev/ttyUSB0"
         self.baud = 9600
         self.serObj = SerialManager(self.port, self.baud)
@@ -53,25 +55,23 @@ class hapticControllerDriver:
 
     def procSerialData(self, RxText):
         """
-        This function extracts the individual euler angle components from the recieved
+        This function extracts the individual data components from the recieved
         serial text. The individual components are packed into a dictionary and returned
         for processing
 
         params:
             RxText (str): The string returned from the serial port
         returns:
-            eulerDict (dict): a dictionary representation of the extracted euler data.
+            dataDict (dict): a dictionary representation of the extracted data.
                              the dictionary will be empty if data extraction fails
             status (bool): a boolean indicating the status of the data extraction
         """
-        eulerDict = dict()
-
         try:
             # de-serialize json
-            YPRdict = json.loads(RxText)
+            dataDict = json.loads(RxText)
 
             # return new dict
-            return True, YPRdict
+            return True, dataDict
         except ValueError:
             return False, dict()
 
@@ -86,9 +86,24 @@ class hapticControllerDriver:
             if(len(lineToProc) == 0):
                 continue
             else:
+                # determine packet type
                 packetType = self.determinePacketType(lineToProc)
+
+                # if it's a button event, publish to system
                 if(packetType == "button_event"):
-                    pass
+                    # unpack data
+                    status, dataDict = self.procSerialData(lineToProc)
+                    if(status):
+                        # create controller event message
+                        controllerEvent = controller_event_data()
+                        controllerEvent.header.stamp = rospy.Time.now()
+                        controllerEvent.controller_name = dataDict["controller_id"]
+                        controllerEvent.event_type = dataDict["event_type"]
+
+                        # publish to topic
+                        self.eventPub.publish(controllerEvent)
+
+                # if it's a data packet, unpack and publish
                 elif(packetType == "outbound_data"):
                     status, rpyDict = self.procSerialData(lineToProc)
                     if(status):
@@ -179,6 +194,7 @@ class hapticControllerDriver:
         # create publisher objects
         self.quatPub = rospy.Publisher(self.bno055QuatTopic, bno055_quat_data, queue_size=1)
         self.eulerPub = rospy.Publisher(self.bno055EulerTopic, bno055_euler_data, queue_size=1)
+        self.eventPub = rospy.Publisher(self.buttonEventTopic, controller_event_data, queue_size=1)
 
         # create rosservice handlers
         rospy.Service(self.hapticVoiceEventSrv, haptic_voice_event, self.hapticVoiceEvent)
