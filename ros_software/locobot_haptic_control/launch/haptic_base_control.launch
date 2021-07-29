@@ -4,10 +4,9 @@
     <arg name="use_arm" default="true"/>
     <arg name="use_sim" default="false"/>
     <arg name="use_camera" default="true"/>
-    <arg name="use_laser" default="False"/>
-    <arg name="use_rviz" default="true"/>
+    <arg name="use_rviz" default="false"/>
     <arg name="use_vslam" default="false"/>
-    <arg name="xbee_serial_port" default="/dev/ttyUSB0"/>
+    <arg name="xbee_serial_port" default="/dev/ttyUSB3"/>
 
     <!--start main locobot control launch file -->
     <include file="$(find locobot_control)/launch/main.launch">
@@ -20,11 +19,9 @@
     </include>
 
     <!-- start LiDAR ROS driver -->
-    <include file="$(find ydlidar_ros_driver)/launch/G2.launch"/>
+    <!--<include file="$(find ydlidar_ros_driver)/launch/G2.launch"/>-->
 
     <!-- start required ROS nodes -->
-    <node pkg="haptic_orientation_capture_driver" type="serialReadAndPub.py" output="screen">
-        <param name="xbee_port" value="$(arg xbee_serial_port)">
-    </node>
-    <node pkg="locobot_haptic_control" type="haptic_base_control.py" output="screen"></node>
+    <node name="haptic_cap_drv" pkg="haptic_orientation_capture_driver" type="serialReadAndPub.py" output="screen" args="$(arg xbee_serial_port)"/>
+    <node name="locobot_haptic_control" pkg="locobot_haptic_control" type="haptic_base_control.py" output="screen"/>
 </launch>

@@ -11,6 +11,7 @@ import rospy
 import time
 import math
 import json
+import sys
 from SerialManagerClass import SerialManager 
 from haptic_orientation_capture_driver.msg import bno055_euler_data, bno055_quat_data
 from haptic_orientation_capture_driver.msg import controller_event_data, controller_haptic_voice
@@ -29,7 +30,7 @@ class hapticControllerDriver:
         self.quatPub = None
         self.eulerPub = None
         self.eventPub = None
-        self.port = rospy.get_param("~xbee_port", "/dev/ttyUSB0")
+        self.port = ""
         self.baud = 9600
         self.serObj = SerialManager(self.port, self.baud)
         self.sleepTime = 1
@@ -187,6 +188,14 @@ class hapticControllerDriver:
         return True
 
     def initDriver(self):
+        # get port from cmd line args
+        args = rospy.myargv(argv=sys.argv)
+        if len(args) < 2:
+            rospy.logerr("include xbee_port argument")
+            return -1
+        else:
+            self.port = str(args[1])
+
         # init node
         rospy.init_node("haptic_controller_ros_driver")
         rospy.loginfo("bno055_ros_driver_node initialized")
@@ -200,6 +209,7 @@ class hapticControllerDriver:
         rospy.Service(self.hapticVoiceEventSrv, haptic_voice_event, self.hapticVoiceEvent)
 
         # try to open serial port
+        self.serObj = SerialManager(self.port, self.baud)
         res = self.serObj.open()
 
         # wait a second before procedeing to make sure
