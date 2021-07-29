@@ -29,7 +29,7 @@ class hapticControllerDriver:
         self.quatPub = None
         self.eulerPub = None
         self.eventPub = None
-        self.port = "/dev/ttyUSB0"
+        self.port = rospy.get_param("~xbee_port", "/dev/ttyUSB0")
         self.baud = 9600
         self.serObj = SerialManager(self.port, self.baud)
         self.sleepTime = 1
