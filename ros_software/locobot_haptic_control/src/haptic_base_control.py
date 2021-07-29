@@ -37,9 +37,12 @@ class hapticBaseControl:
         self.hapticVoiceSrvName = "/haptic_voice_event"
         
         # define scaling and limit constants
-        self.currentFwdScaleFactor = 0.25
-        self.currentTwistScaleFactor = 0.6
-        self.incDecAmount = 0.05
+        self.currentFwdScaleFactor = 0.2
+        self.currentTwistScaleFactor = 0.5
+        self.fineTuneTwistScaleFactor = 0.25
+        self.fineTuneFwdScaleFactor = 0.05
+        self.courseFwdScaleFactor = self.currentFwdScaleFactor
+        self.courseTwistScaleFactor = self.currentTwistScaleFactor
         self.deadZonePitchPlus = 6.5
         self.deadZonePitchMinus = -6.5
         self.deadZoneRollPlus = 6.5
@@ -103,12 +106,18 @@ class hapticBaseControl:
             None
         """
         # first check to make sure we are using the right controller
+        rospy.loginfo("here")
         if(msg.controller_name == self.controller_id):
             # increment or decrement scale factor based on event type
-            if(msg.event_type == "top_button_event"):
-                self.currentScaleFactor += self.incDecAmount
-            elif(msg.event_type == "bottom_button_event"):
-                self.currentScaleFactor -= self.incDecAmount
+            if(msg.event_type == "top_button_pressed"):
+                self.currentFwdScaleFactor = self.courseFwdScaleFactor
+                self.currentTwistScaleFactor = self.courseTwistScaleFactor
+                rospy.loginfo("changed to course scaling!")
+
+            elif(msg.event_type == "bottom_button_pressed"):
+                self.currentFwdScaleFactor = self.fineTuneFwdScaleFactor
+                self.currentTwistScaleFactor = self.fineTuneTwistScaleFactor
+                rospy.loginfo("changed to fine scaling!")
         else:
             pass
 
