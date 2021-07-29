@@ -37,7 +37,8 @@ class hapticBaseControl:
         self.hapticVoiceSrvName = "/haptic_voice_event"
         
         # define scaling and limit constants
-        self.currentScaleFactor = 0.5
+        self.currentFwdScaleFactor = 0.25
+        self.currentTwistScaleFactor = 0.6
         self.incDecAmount = 0.05
         self.deadZonePitchPlus = 6.5
         self.deadZonePitchMinus = -6.5
@@ -45,7 +46,7 @@ class hapticBaseControl:
         self.deadZoneRollMinus = -6.5
         self.maxAnglePitch = 30
         self.maxAngleRoll = 30
-        self.velExecTime = 0.005
+        self.velExecTime = 0.01
 
         # define constants for obstacle detection
         self.lidarDistanceThresh = 1
@@ -198,7 +199,7 @@ class hapticBaseControl:
                 # get angle as fraction of 'usable' workspace
                 totalUsableNegative = self.deadZonePitchMinus - self.maxAnglePitch
                 negFraction = (curPitch + self.deadZonePitchMinus)/totalUsableNegative
-                unit_fwd_vel = negFraction
+                unit_fwd_vel = -1*negFraction
             else:
                 # get angle as fraction of 'usable' workspace
                 totalUsablePositive = self.deadZonePitchPlus + self.maxAnglePitch
@@ -208,8 +209,10 @@ class hapticBaseControl:
         # handle OOB cases
         elif(inPitchDeadzone):
             unit_fwd_vel = 0
-        elif(overMaxPitch):
+        elif(overMaxPitch and curPitch > 0):
             unit_fwd_vel = 1
+        elif(overMaxPitch and curPitch < 0):
+            unit_fwd_vel = -1
 
         if(not inRollDeadzone and not overMaxRoll):
             isRollNeg = curRoll < 0
@@ -217,7 +220,7 @@ class hapticBaseControl:
                 # get angle as fraction of 'usable' workspace
                 totalUsableNegative = self.deadZoneRollMinus - self.maxAngleRoll
                 negFraction = (curRoll + self.deadZoneRollMinus)/totalUsableNegative
-                unit_twist_vel = negFraction
+                unit_twist_vel = -1*negFraction
             else:
                 # get angle as fraction of 'usable' workspace
                 totalUsablePositive = self.deadZoneRollPlus + self.maxAngleRoll
@@ -227,18 +230,20 @@ class hapticBaseControl:
         # handle OOB cases
         elif(inRollDeadzone):
             unit_twist_vel = 0
-        elif(overMaxRoll):
+        elif(overMaxRoll and curRoll > 0):
             unit_twist_vel = 1
+        elif(overMaxRoll and curRoll < 0):
+            unit_twist_vel = -1
 
         # scale velocities
-        unit_fwd_vel *= self.currentScaleFactor
-        unit_twist_vel *= self.currentScaleFactor
+        unit_fwd_vel *= self.currentFwdScaleFactor
+        unit_twist_vel *= self.currentTwistScaleFactor
 
         rospy.loginfo('current velocity (fwd, twist): (%s, %s)' % (unit_fwd_vel, unit_twist_vel))
 
         # set robot vel
         self.LoCoBotInstance.base.set_vel(fwd_speed=unit_fwd_vel,
-                turn_speed=unit_twist_vel,
+                turn_speed=-1*unit_twist_vel,
                 exe_time=self.velExecTime)
 
 if(__name__ == "__main__"):
