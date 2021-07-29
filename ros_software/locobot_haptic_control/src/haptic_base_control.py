@@ -46,13 +46,13 @@ class hapticBaseControl:
         self.deadZoneRollMinus = -6.5
         self.maxAnglePitch = 30
         self.maxAngleRoll = 30
-        self.velExecTime = 0.01
+        self.velExecTime = 0.0001
 
         # define constants for obstacle detection
-        self.lidarDistanceThresh = 1
-        self.maxNumBumps = 10
+        self.lidarDistanceThresh = 0.3
+        self.maxNumBumps = 15
         self.timeOfLastDisplay = time.time()
-        self.minTimeBetweenDisplays = 2 # seconds
+        self.minTimeBetweenDisplays = 10 # seconds
         self.collisionVoiceID = 2
         self.collisionHapticID = 52
 
@@ -67,7 +67,7 @@ class hapticBaseControl:
         # init subscribers
         rospy.Subscriber(self.eulerDataTopic, bno055_euler_data, self.euler_callback)
         rospy.Subscriber(self.buttonDataTopic, controller_event_data, self.button_callback)
-        rospy.Subscriber(self.lidarTopic, LaserScan, self.lidar_callback)
+        #rospy.Subscriber(self.lidarTopic, LaserScan, self.lidar_callback)
 
         rospy.spin()
 
@@ -173,7 +173,7 @@ class hapticBaseControl:
             controller_event_msg.voice_action_id = voice_id
 
             controller_event = rospy.ServiceProxy(self.hapticVoiceSrvName, haptic_voice_event)
-            res = event(controller_event_msg)
+            res = controller_event(controller_event_msg)
             return res.status
         except rospy.ServiceException as e:
                 rospy.logerr("Service call failed: %s"%e)
