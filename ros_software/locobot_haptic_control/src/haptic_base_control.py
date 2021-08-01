@@ -47,8 +47,8 @@ class hapticBaseControl:
         self.deadZonePitchMinus = -6.5
         self.deadZoneRollPlus = 6.5
         self.deadZoneRollMinus = -6.5
-        self.maxAnglePitch = 30
-        self.maxAngleRoll = 30
+        self.maxAnglePitch = 40
+        self.maxAngleRoll = 40
         self.velExecTime = 0.0001
 
         # define constants for obstacle detection
@@ -109,12 +109,12 @@ class hapticBaseControl:
         rospy.loginfo("here")
         if(msg.controller_name == self.controller_id):
             # increment or decrement scale factor based on event type
-            if(msg.event_type == "top_button_pressed"):
+            if(msg.event_type == "bottom_button_pressed"):
                 self.currentFwdScaleFactor = self.courseFwdScaleFactor
                 self.currentTwistScaleFactor = self.courseTwistScaleFactor
                 rospy.loginfo("changed to course scaling!")
 
-            elif(msg.event_type == "bottom_button_pressed"):
+            elif(msg.event_type == "top_button_pressed"):
                 self.currentFwdScaleFactor = self.fineTuneFwdScaleFactor
                 self.currentTwistScaleFactor = self.fineTuneTwistScaleFactor
                 rospy.loginfo("changed to fine scaling!")
