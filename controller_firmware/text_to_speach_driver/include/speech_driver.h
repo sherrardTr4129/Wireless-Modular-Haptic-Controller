@@ -12,6 +12,8 @@ class speechDriver
 {
    public:
       speechDriver(Talkie *voice);
+      void course_instructions();
+      void fine_instructions();
       void arm_too_low();
       void arm_too_high();
       void obstacle_close();

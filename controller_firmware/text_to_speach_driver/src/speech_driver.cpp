@@ -9,6 +9,7 @@
 #include "Talkie.h"
 #include "Vocab_US_Large.h"
 #include "Vocab_Special.h"
+#include "Vocab_US_TI99.h"
 
 // include system libraries
 #include "../include/speech_driver.h"
@@ -17,6 +18,20 @@ speechDriver::speechDriver(Talkie *voice)
 {
    // set up talkie pointer
    _voice = voice;
+}
+
+void speechDriver::course_instructions()
+{
+   _voice->say(spt_START);
+   _voice->say(spt_COURSE);
+   _voice->say(spt_COMMAND);
+}
+
+void speechDriver::fine_instructions()
+{
+   _voice->say(spt_START);
+   _voice->say(spt_FINE);
+   _voice->say(spt_COMMAND);
 }
 
 void speechDriver::arm_too_low()

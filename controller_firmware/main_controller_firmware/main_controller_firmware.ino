@@ -112,7 +112,7 @@ void loop() {
 
     // play haptic effect and TTS
     bsp.playEffect(STRONG_RAMP);
-    bsp.speak_tts(ARM_TOO_LOW);
+    bsp.speak_tts(COURSE_SCALING);
 
     // reset flag
     was_in_bottom_button_ISR = false;
@@ -126,7 +126,7 @@ void loop() {
 
     // play haptic effect and TTS
     bsp.playEffect(STRONG_RAMP);
-    bsp.speak_tts(ARM_TOO_HIGH);
+    bsp.speak_tts(FINE_SCALING);
 
     // reset flag
     was_in_top_button_ISR = false;

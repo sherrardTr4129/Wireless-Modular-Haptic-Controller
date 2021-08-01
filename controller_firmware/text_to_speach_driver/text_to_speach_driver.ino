@@ -1,15 +1,16 @@
 /*
- * Author: Trevor Sherrard
- * Since: July 25, 2021
- * Purpose: This file contains the code required
- *          to manage and drive the onboard controller 
- *          speaker.
- */
- 
-// include TTS and peripheral libraries 
+   Author: Trevor Sherrard
+   Since: July 25, 2021
+   Purpose: This file contains the code required
+            to manage and drive the onboard controller
+            speaker.
+*/
+
+// include TTS and peripheral libraries
 #include "Talkie.h"
 #include "Vocab_US_Large.h"
 #include "Vocab_Special.h"
+#include "Vocab_US_TI99.h"
 #include <Wire.h>
 
 // include system libraries
@@ -27,7 +28,7 @@ void handle_i2c_event()
   int rx_byte = Wire.read();
 
   // switch on byte, execute proper event
-  switch(rx_byte)
+  switch (rx_byte)
   {
     case 0:
       spk_drv.arm_too_low();
@@ -38,9 +39,15 @@ void handle_i2c_event()
     case 2:
       spk_drv.obstacle_close();
       break;
+    case 3:
+      spk_drv.course_instructions();
+      break;
+    case 4:
+      spk_drv.fine_instructions();
+      break;
     default:
       break;
-  } 
+  }
 }
 
 void setup() {
