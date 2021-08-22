@@ -11,6 +11,14 @@ A given single controller offers much more sensing and actuation capability as c
 
 ![Controller Architecture Diagram](./documentation/controllerDiagram.jpg)
 
+The table below contains a more in-depth explaination of the individual controller architecture, including each sub-system's components.
+
+![Controller Architecture Diagram](./documentation/SubsystemTable.PNG)
+
+Once the controller is completely assembled, it should look something like the controller in the figure below. 
+
+![Controller Architecture Diagram](./documentation/HapticControllerFront.png)
+
 ## High Level System Architecture
 The system is comprised of a single base-station node, and several controller nodes. The base-station node serves as the entry point into the network and coordinates the setup of the overall mesh network (coordinator node). A ROS driver manages data transactions between the ROS infrastructure and the controller mesh network via a serial interface with the coordinator node. The mesh network itself is comprised of wireless XBee modules attached to each controller. These provide a high level of configurability for a relatively low price. Have a look at the data flow diagram below for a simplified explanation of the system's base configuration. 
 
