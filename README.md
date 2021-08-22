@@ -6,6 +6,11 @@ Have a look at the system in action! The video below shows a single controller b
 
 [![LoCoBot Control](https://img.youtube.com/vi/vkgRInzt20c/0.jpg)](https://www.youtube.com/watch?v=vkgRInzt20c)
 
+## Single Controller Architecture
+A given single controller offers much more sensing and actuation capability as compared to the controller design implemented [here](https://github.com/sherrardTr4129/RealSense-BNO055-Pose-Estimation). In this design, each controller acts as a node on a larger mesh network. This allows for ease of addition and subtraction of nodes from said network, depending on the desired HRI configuration. Each controller has the ability to deliver audio (including basic TTS) and vibrotactile feedback to the user. In addition, the controller still contains a BNO055 sensor to extract the orientation of the controller itself in three dimensional space. Each given controller also has two momentary push buttons for user input. Please see the figure below for a graphical depicition of the controller architecture. 
+
+![Controller Architecture Diagram](./documentation/controllerDiagram.jpg)
+
 ## High Level System Architecture
 The system is comprised of a single base-station node, and several controller nodes. The base-station node serves as the entry point into the network and coordinates the setup of the overall mesh network (coordinator node). A ROS driver manages data transactions between the ROS infrastructure and the controller mesh network via a serial interface with the coordinator node. The mesh network itself is comprised of wireless XBee modules attached to each controller. These provide a high level of configurability for a relatively low price. Have a look at the data flow diagram below for a simplified explanation of the system's base configuration. 
 
