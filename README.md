@@ -15,9 +15,13 @@ The table below contains a more in-depth explaination of the individual controll
 
 ![Controller Architecture Diagram](./documentation/SubsystemTable.PNG)
 
+The individual controller's firmware was designed using a split application level firmware and board support package (BSP) paradigm. All sensor and actuator control drivers were contained within the BSP and could be accessed from a BSP instance within the application level firmware. A graphical depiction of this software architecture can be seen within the figure below.
+
+![Controller Software Architecture Diagram](./documentation/single_controller_arch.png)
+
 Once the controller is completely assembled, it should look something like the controller in the figure below. 
 
-![Controller Architecture Diagram](./documentation/HapticControllerFront.png)
+![Controller Build](./documentation/HapticControllerFront.png)
 
 ## High Level System Architecture
 The system is comprised of a single base-station node, and several controller nodes. The base-station node serves as the entry point into the network and coordinates the setup of the overall mesh network (coordinator node). A ROS driver manages data transactions between the ROS infrastructure and the controller mesh network via a serial interface with the coordinator node. The mesh network itself is comprised of wireless XBee modules attached to each controller. These provide a high level of configurability for a relatively low price. Have a look at the data flow diagram below for a simplified explanation of the system's base configuration. 
