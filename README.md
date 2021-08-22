@@ -10,5 +10,5 @@ Have a look at the system in action! The video below shows a single controller b
 The system is comprised of a single base-station node, and several controller nodes. The base-station node serves as the entry point into the network and coordinates the setup of the overall mesh network (coordinator node). A ROS driver manages data transactions between the ROS infrastructure and the controller mesh network via a serial interface with the coordinator node. The mesh network itself is comprised of XBee modules attached to each controller. These provide a high level of configurability for a relatively low price. Have a look at the data flow diagram below for a simplified explanation of the system's base configuration. 
 
 ![Data Flow Diagram](./documentation/dataFlowDiagram.png)
-![Data Types](./documentation/data_types.PNG.png)
+![Data Types](./documentation/data_types.PNG)
 
