@@ -2,7 +2,7 @@
 This sub-directory contains the KiCAD project used to generate the GERBERs needed to manufactor the PCB for the haptic controller. An overview of the PCB design and system BoM can be seen in the sections below.
 
 ## PCB Design
-The PCB for the controller itself was attempted to be designed to be as modular as possible. For example, each of the sensors and actuators can be dynamically populated and de-populated based on the needs of the given controller within the HRI configuration being constructed. A picture of the bare PCB can be seen in the image below. 
+The PCB for the controller itself was attempted to be designed to be as modular as possible. For example, each of the sensors and actuators can be dynamically populated and de-populated based on the needs of the given controller within the HRI configuration being constructed. Please note that the PCB was designed with the assumption that it would be manufactored through the use of JLCPCB, so many of the surface mount components are chosen from their inventory system. A picture of the bare PCB can be seen in the image below. 
 
 ![Bare PCB](../documentation/PCB_Final.PNG)
 
