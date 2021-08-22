@@ -11,3 +11,4 @@ The overall controller is powered off of a 9V battery, but can handle input volt
 ![Electrical Charictoristics](../documentation/electrical_charictoristics.PNG)
 
 ## System Bill Of Materials
+The overall bill of materials needed to build a single controller can be seen within the table below.
