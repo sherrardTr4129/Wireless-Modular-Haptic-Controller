@@ -2,4 +2,4 @@
 
 ## ROS Coordinator Node Serial Driver
 
-## LoCoBot Control Example
+## LoCoBot Base Control Example
