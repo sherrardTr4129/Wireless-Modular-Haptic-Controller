@@ -6,6 +6,8 @@ The PCB for the controller itself was attempted to be designed to be as modular 
 
 ![Bare PCB](../documentation/PCB_Final.PNG)
 
-The overall controller is powered off of a 9V battery, but can handle input voltages up to 12V. 
+The overall controller is powered off of a 9V battery, but can handle input voltages up to 12V. Some of the other electical charictoristics of the controller can be seen within the table in the figure below.
+
+![Electrical Charictoristics](../documentation/electrical_charictoristics.PNG)
 
 ## System Bill Of Materials
