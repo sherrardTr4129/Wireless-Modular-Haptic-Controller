@@ -6,3 +6,5 @@ The mechanical designs for this project were designed under a modularity paradig
 The controller base is designed to allow for an optional vision target to be installed. This vision target will allow for the extraction of the controller's position in 3D space to be extracted through the use of a depth camera. Please have a look at the figure below depicting the controller base and hand-held glove assembly (with push buttons installed) along with the optional vision target.
 
 ![Controller Assembly With Vision Target](../documentation/base_with_target.jpg)
+
+The mechanical designs for these three aforementioned mechanical components can be found in the folders within the sub-directory as freeCAD documents. You can export the STL to 3D print these components from freeCAD.
