@@ -55,6 +55,7 @@ Inbound JSON data packets contain a target controller, and a requested audio or 
 More on the meanings of the values for the voice\_action\_id and haptic\_action\_id fields in the upcomming sections. The JSON seen above will be created within the ROS driver itself, so don't worry too much about this.
 
 ## ROS Coordinator Node Serial Driver
+The haptic\_orientation\_capture\_driver ROS node serves as a bridge between the controller mesh network and a given ROS software architecture. This driver will manage the serial interfacing between a base-station coordinator XBee and the host computer. This driver will also publish recieved BNO055 data streams and button press events. This driver also exposes a ROS service that can be called by external ROS nodes to send audio-haptic event requests to a given controller on the mesh network. 
 
 ### Custom Messages
 
