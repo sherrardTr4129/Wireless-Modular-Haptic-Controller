@@ -30,6 +30,17 @@ If usingEuler is set to false, the format of the outbound BNO055 data packet wil
 }
 ```
 
+Note these are both just templates, and the value of a given field will change.
+
+The other outbound data type from a given controller is event data packets. These are transmitted whenever user input is obtained through the pushbuttons attached to a given controller. The format of this type of data packet can be seen below:
+```JSON
+{
+  "packet_type": "button_event",
+  "controller_id": "right_hand",
+  "event_type": "top_button_pressed"
+}
+```
+
 ### Inbound data JSON schema
 
 
