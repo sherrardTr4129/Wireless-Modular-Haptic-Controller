@@ -42,6 +42,13 @@ After assembling a new board mechanically and electrically, the appropriate boot
 ### Firmware Flashing
 To flash the firmware on each respective MCU, a USB->TTL Serial converter is required. I made use of the converter found [here](https://www.amazon.com/HiLetgo-FT232RL-Converter-Adapter-Breakout/dp/B00IJXZQ7C/ref=sr_1_2_sspa?crid=23L8XQKO9AP5J&dchild=1&keywords=usb+to+ttl+serial+adapter&qid=1629733622&sprefix=usb+to+ttl+ser%2Caps%2C194&sr=8-2-spons&psc=1&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUExMjNWOUZWT1o5Q1NLJmVuY3J5cHRlZElkPUEwNjY1MjA1MVhKMEgwTkRMRUROSCZlbmNyeXB0ZWRBZElkPUEwMjM2Mjg2MTBUOVoxVlhDV0hUWSZ3aWRnZXROYW1lPXNwX2F0ZiZhY3Rpb249Y2xpY2tSZWRpcmVjdCZkb05vdExvZ0NsaWNrPXRydWU=) In my development efforts. In the case of either MCU, the connections between the USB->TTL Serial converter and the board need to be made as described below:
 
+| Firmware Flashing Pin | USB<->TTL Serial Converter Pin |
+|-----------------------|--------------------------------|
+| GND                   | GND                            |
+| TX                    | RX                             |
+| RX                    | TX                             |
+| DTR                   | DTR (through 100nF capacitor)  |
+
 Please make sure to change the programmer from "Arduino as ISP" used in the last step back to "AVRISP MKll" before trying to upload any firmware.
 
 ## XBee Radio Configuration
