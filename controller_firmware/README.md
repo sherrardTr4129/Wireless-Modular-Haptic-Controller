@@ -6,12 +6,12 @@ This section will breifly outline the different firmware dependencies within thi
 
 ### Main Controller Firmware Dependencies
 * **Adafruit Sensor Library** - This library provides general functionallity required for the two onboard adafruit sensors.
-* Adafruit BNO055 Library - This library provides functionallity needed to read data from the onboard BNO055 sensor via an I2C interface. 
-* Adafruit DRV2605 Library - This library provides functionallity needed to interface with the DRV2605 driver board via an I2C interface.
-* ArduinoJson - This library provides JSON document construction functionallity and functionallity to serialize said documents via the XBee wireless interface. 
+* **Adafruit BNO055 Library** - This library provides functionallity needed to read data from the onboard BNO055 sensor via an I2C interface. 
+* **Adafruit DRV2605 Library** - This library provides functionallity needed to interface with the DRV2605 driver board via an I2C interface.
+* **ArduinoJson** - This library provides JSON document construction functionallity and functionallity to serialize said documents via the XBee wireless interface. 
 
 ### Text-To-Speech Controller Firmware Dependencies
-* Talkie - This library provides rudimentary TTS functionallity utilizing the onboard MCU TIMER1 and TIMER2 peripherals. 
+* **Talkie** - This library provides rudimentary TTS functionallity utilizing the onboard MCU TIMER1 and TIMER2 peripherals. 
 
 ## Main Controller Firmware
 
