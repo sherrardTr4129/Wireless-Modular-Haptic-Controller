@@ -29,7 +29,11 @@ const char* controller_name = "right_hand";
 This line defines the given controller's name. The controller name is an important field in all inbound and outbound JSON packets. For outbound data, the controller\_name field is used to determine the origin of the recieved BNO055 data packet. For inbound data, the recieved data packet needs to have the controller\_name field value equivalent to the name set in the above line of code for it to be processed by a given controller. Please ajdust this line accordingly based on the desired HRI configuration.
 
 ## Text-To-Speech Controller Firmware
+The Text-To-Speech controller firmware is designed to be run on the ATMEGA328P-AU processor on the PCB. It's main purpose is to accept requests to play pre-rendered TTS audio events via the I2C interface managed by the main controller. The I2C transaction is simple, as it requires a single integer number between 0 and 4 corresponding to one of the aforementioned TTS events. 
 
 ## Bootloader and Firmware Flashing Proceedure
+The pins on the PCB itself needed to flash the bootloader and respective firmware can be seen highlighted in the image below:
+
+![MCU Bootloader and Firmware Flashing Pins](../documentation/PCB_Prog_Pins.PNG)
 
 ## XBee Radio Configuration
