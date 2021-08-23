@@ -36,6 +36,12 @@ The pins on the PCB itself needed to flash the bootloader and respective firmwar
 
 ![MCU Bootloader and Firmware Flashing Pins](../documentation/PCB_Prog_Pins.PNG)
 
+### Bootloader Flashing 
 After assembling a new board mechanically and electrically, the appropriate bootloader needs to be flashed to each respective MCU. The easist way to do this is to use a seperate arduino uno as an ICSP device. Please follow the tutorial outlined [here](https://www.electronics-lab.com/project/installing-the-arduino-bootloader-on-the-atmega328p-microcontroller/) to flash the bootloader onto each respective MCU using an arduino uno as an ICSP. Please note that this tutorial assumes the target chip is an ATMEGA328P, which is true for the TTS MCU, but not for the main MCU. Make sure to change the board type to "ATmega2560" when flashing the bootloader to the main MCU.
+
+### Firmware Flashing
+To flash the firmware on each respective MCU, a USB->TTL Serial converter is required. I made use of the converter found [here](https://www.amazon.com/HiLetgo-FT232RL-Converter-Adapter-Breakout/dp/B00IJXZQ7C/ref=sr_1_2_sspa?crid=23L8XQKO9AP5J&dchild=1&keywords=usb+to+ttl+serial+adapter&qid=1629733622&sprefix=usb+to+ttl+ser%2Caps%2C194&sr=8-2-spons&psc=1&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUExMjNWOUZWT1o5Q1NLJmVuY3J5cHRlZElkPUEwNjY1MjA1MVhKMEgwTkRMRUROSCZlbmNyeXB0ZWRBZElkPUEwMjM2Mjg2MTBUOVoxVlhDV0hUWSZ3aWRnZXROYW1lPXNwX2F0ZiZhY3Rpb249Y2xpY2tSZWRpcmVjdCZkb05vdExvZ0NsaWNrPXRydWU=) In my development efforts. In the case of either MCU, the connections between the USB->TTL Serial converter and the board need to be made as described below:
+
+Please make sure to change the programmer from "Arduino as ISP" used in the last step back to "AVRISP MKll" before trying to upload any firmware.
 
 ## XBee Radio Configuration
