@@ -42,7 +42,17 @@ The other outbound data type from a given controller is event data packets. Thes
 ```
 
 ### Inbound data JSON schema
+Inbound JSON data packets contain a target controller, and a requested audio or haptic event to display to the user. These data packets take the form of the following JSON schema:
 
+```JSON
+{
+  "controller_name": "right_hand",
+  "voice_action_id": 1,
+  "haptic_action_id": 53
+}
+```
+
+More on the meanings of the values for the voice\_action\_id and haptic\_action\_id fields in the upcomming sections. The JSON seen above will be created within the ROS driver itself, so don't worry too much about this.
 
 ## ROS Coordinator Node Serial Driver
 
