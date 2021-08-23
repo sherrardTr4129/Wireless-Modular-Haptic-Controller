@@ -52,3 +52,4 @@ To flash the firmware on each respective MCU, a USB->TTL Serial converter is req
 Please make sure to change the programmer from "Arduino as ISP" used in the last step back to "AVRISP MKll" before trying to upload any firmware.
 
 ## XBee Radio Configuration
+As mentioned previously, the controller XBees all need to be configured as routers, and the single base-station XBee needs to configured as a coordinator. In all cases, the devices should be set in broadcast mode. That is, if a packet is transmitted from an XBee radio, all other radios on the network should recieve it. There are several tutorials on XBee configuration using the XTCU tool. [Here](https://youtu.be/cf3RLBg4t5s) is one useful tutorial video.
