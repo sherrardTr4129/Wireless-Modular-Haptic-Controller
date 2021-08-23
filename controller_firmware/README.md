@@ -29,11 +29,13 @@ const char* controller_name = "right_hand";
 This line defines the given controller's name. The controller name is an important field in all inbound and outbound JSON packets. For outbound data, the controller\_name field is used to determine the origin of the recieved BNO055 data packet. For inbound data, the recieved data packet needs to have the controller\_name field value equivalent to the name set in the above line of code for it to be processed by a given controller. Please ajdust this line accordingly based on the desired HRI configuration.
 
 ## Text-To-Speech Controller Firmware
-The Text-To-Speech controller firmware is designed to be run on the ATMEGA328P-AU processor on the PCB. It's main purpose is to accept requests to play pre-rendered TTS audio events via the I2C interface managed by the main controller. The I2C transaction is simple, as it requires a single integer number between 0 and 4 corresponding to one of the aforementioned TTS events. 
+The Text-To-Speech controller firmware is designed to be run on the ATMEGA328P-AU processor on the PCB. It's main purpose is to accept requests to play pre-rendered TTS audio events via the I2C interface managed by the main controller. The I2C transaction is simple, as it requires a single integer number between 0 and 4 corresponding to one of the aforementioned TTS events. The TTS events are instantiated through the use of the Talkie library. If the included vocabularies within the Talkie library do not suit your needs, there are [tutorials](https://github.com/ptwz/python_wizard) on how to render new TTS events.
 
 ## Bootloader and Firmware Flashing Proceedure
 The pins on the PCB itself needed to flash the bootloader and respective firmware can be seen highlighted in the image below:
 
 ![MCU Bootloader and Firmware Flashing Pins](../documentation/PCB_Prog_Pins.PNG)
+
+After assembling a new board mechanically and electrically, the appropriate bootloader needs to be flashed to each respective MCU. The easist way to do this is to use a seperate arduino uno as an ICSP device. Please follow the tutorial outlined [here](https://www.electronics-lab.com/project/installing-the-arduino-bootloader-on-the-atmega328p-microcontroller/) to flash the bootloader onto each respective MCU using an arduino uno as an ICSP. Please note that this tutorial assumes the target chip is an ATMEGA328P, which is true for the TTS MCU, but not for the main MCU. Make sure to change the board type to "ATmega2560" when flashing the bootloader to the main MCU.
 
 ## XBee Radio Configuration
