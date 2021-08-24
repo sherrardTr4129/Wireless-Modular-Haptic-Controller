@@ -18,9 +18,7 @@
         <arg name="use_vslam" value="$(arg use_vslam)"/>
     </include>
 
-    <!-- start LiDAR ROS driver -->
-    <include file="$(find ydlidar_ros_driver)/launch/G2.launch"/>
-
     <!-- start required ROS nodes -->
     <node name="locobot_haptic_control" pkg="locobot_haptic_control" type="haptic_base_control.py" output="screen"/>
+    <node name="haptic_orientation_capture_driver" pkg="haptic_orientation_capture_driver" type="serialReadAndPub.py" output="screen"/>
 </launch>
