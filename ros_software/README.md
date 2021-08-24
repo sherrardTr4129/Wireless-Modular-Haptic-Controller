@@ -74,3 +74,4 @@ The haptic\_orientation\_capture\_driver ROS node hosts a service that allows us
 
 
 ## LoCoBot Base Control Example
+The locobot\_haptic\_control ROS package was developed to showcase the usefulness of the developed modular controller. This particular node makes use of all the data streams available from a controller, and can make audio-haptic requests based on custom conditions set by the user. Currently, the node allows for control of the robot base with adjustable scaling. The scaling mode can be changed through button press events on the controller. Please see the youtube video in this repositories base README.md file for an example of this working. Both the haptic\_orientation\_capture\_driver and the locobot\_haptic\_control ROS packages can be launched using the locobot\_haptic\_control.launch file in the locobot\_haptic\_control ROS package.
