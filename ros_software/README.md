@@ -68,6 +68,6 @@ The packages outlined here make use of a few custom ROS messages to communicate 
 | controller_haptic_voice.msg | **Description** - audio-haptic requests can be sent to a given controller on the mesh network via the ROS service described below. <br>This message is used to make said request.<br><br>**Message Content:**<br>string controller\_name - The controller the request is bound for<br>int16 haptic_action_id - selected haptic display ID<br>int16 voice_action_id - selected TTS display ID                   |
 
 ### Custom Service
-The haptic\_orientation\_capture\_driver ROS node hosts a service that allows users to request an audio-haptic event to be performed by a given controller. This service call requires a haptic\_voice\_event message instance containing the voice\_action\_id and haptic\_action\_id for a given controller with name controller\_name.
+The haptic\_orientation\_capture\_driver ROS node hosts a service that allows users to request an audio-haptic event to be performed by a given controller. This service call requires a haptic\_voice\_event message instance containing the voice\_action\_id and haptic\_action\_id for a given controller with name controller\_name. For the pre-rendered TTS events, please see firmware to determine mapping between voice\_action\_id and a given TTS event. For the haptic diplays, haptic\_action\_id should be chosen from the table below based on the desired waveform.
 
 ## LoCoBot Base Control Example
