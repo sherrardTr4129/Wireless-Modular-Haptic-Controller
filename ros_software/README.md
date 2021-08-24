@@ -59,6 +59,13 @@ The haptic\_orientation\_capture\_driver ROS node serves as a bridge between the
 
 ### Custom Messages
 
+| Message Name                | Message Components                                                                                                                                                                                                                             |
+|-----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| bno055_euler_data.msg       | string controller\_name - The controller the BNO055 data came from<br>Header header - header containing a timestamp<br>float64 roll - roll data (in degrees)<br>float64 pitch - pitch data (in degrees)<br>float64 yaw - yaw data (in degrees) |
+| bno055_quat_data.msg        | string controller\_name - The controller the BNO055 data came from<br>geometry_msgs/QuaternionStamped quat - orientation data as quaternion                                                                                                    |
+| controller_event_data.msg   | string controller\_name - The controller the button event data came from<br>Header header - header containing a timestamp<br>string event_type - string representation of which button was pressed on the controller                           |
+| controller_haptic_voice.msg | string controller\_name - The controller the request is bound for<br>int16 haptic_action_id - selected haptic display ID<br>int16 voice_action_id - selected TTS display ID                                                                    |
+
 ### Custom Services
 
 ## LoCoBot Base Control Example
