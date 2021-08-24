@@ -70,4 +70,7 @@ The packages outlined here make use of a few custom ROS messages to communicate 
 ### Custom Service
 The haptic\_orientation\_capture\_driver ROS node hosts a service that allows users to request an audio-haptic event to be performed by a given controller. This service call requires a haptic\_voice\_event message instance containing the voice\_action\_id and haptic\_action\_id for a given controller with name controller\_name. For the pre-rendered TTS events, please see firmware to determine mapping between voice\_action\_id and a given TTS event. For the haptic diplays, haptic\_action\_id should be chosen from the table below based on the desired waveform.
 
+![DRV2560 Waveforms](../documentation/adafruit_products_DRV_Waveforms.png)
+
+
 ## LoCoBot Base Control Example
